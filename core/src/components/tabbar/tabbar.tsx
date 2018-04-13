@@ -1,6 +1,6 @@
 import { Component, Element, Listen, Prop, State, Watch } from '@stencil/core';
 import { createThemedClasses } from '../../utils/theme';
-import { QueueController } from '../../index';
+import { Mode, QueueController } from '../../index';
 
 @Component({
   tag: 'ion-tabbar',
@@ -13,17 +13,17 @@ import { QueueController } from '../../index';
   }
 })
 export class Tabbar {
-  mode: string;
-  color: string;
+  mode!: Mode;
+  color!: string;
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   @State() canScrollLeft = false;
   @State() canScrollRight = false;
 
   @State() hidden = false;
 
-  @Prop({ context: 'queue' }) queue: QueueController;
+  @Prop({ context: 'queue' }) queue!: QueueController;
   @Prop() placement = 'bottom';
   @Prop() selectedTab: HTMLIonTabElement;
   @Prop() scrollable: boolean;

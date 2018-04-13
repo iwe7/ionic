@@ -8,9 +8,9 @@ import { isCordova } from '../../global/platform-utils';
 })
 export class Platform {
 
-  @Prop({ context: 'platforms' }) _platforms: PlatformConfig[];
-  @Prop({ context: 'readQueryParam'}) readQueryParam: (url: string, key: string) => string;
-  @Element() el: HTMLElement;
+  @Prop({ context: 'platforms' }) _platforms!: PlatformConfig[];
+  @Prop({ context: 'readQueryParam'}) readQueryParam!: (url: string, key: string) => string;
+  @Element() el!: HTMLElement;
 
   /**
    * Depending on the platform the user is on, `is(platformName)` will

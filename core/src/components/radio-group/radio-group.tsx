@@ -10,7 +10,7 @@ export class RadioGroup implements ComponentDidLoad, RadioGroupInput {
   private didLoad: boolean;
   private radios: HTMLIonRadioElement[] = [];
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   @State() labelId: string;
 
@@ -88,7 +88,7 @@ export class RadioGroup implements ComponentDidLoad, RadioGroupInput {
   /**
    * Emitted when the value has changed.
    */
-  @Event() ionChange: EventEmitter<InputChangeEvent>;
+  @Event() ionChange!: EventEmitter<InputChangeEvent>;
 
   @Listen('ionRadioDidLoad')
   onRadioDidLoad(ev: HTMLIonRadioElementEvent) {

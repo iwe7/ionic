@@ -1,7 +1,7 @@
 import { Component, Element, Prop } from '@stencil/core';
-import { clamp } from '../../utils/helpers';
-import { GestureDetail, PickerColumn, PickerColumnOption, QueueController } from '../../index';
+import { GestureDetail, Mode, PickerColumn, PickerColumnOption, QueueController } from '../../index';
 import { hapticSelectionChanged } from '../../utils';
+import { clamp } from '../../utils/helpers';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { hapticSelectionChanged } from '../../utils';
   }
 })
 export class PickerColumnCmp {
-  private mode: string;
+  mode!: Mode;
 
   private bounceFrom: number;
   private lastIndex: number;
@@ -26,9 +26,9 @@ export class PickerColumnCmp {
   private velocity: number;
   private y = 0;
 
-  @Element() private el: HTMLElement;
+  @Element() el!: HTMLElement;
 
-  @Prop({ context: 'queue' }) queue: QueueController;
+  @Prop({ context: 'queue' }) queue!: QueueController;
 
   @Prop() col: PickerColumn;
 

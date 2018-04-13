@@ -1,5 +1,5 @@
 import { Component, Element, Prop } from '@stencil/core';
-import { Config } from '../../index';
+import { Config, Mode } from '../../index';
 
 @Component({
   tag: 'ion-app',
@@ -12,14 +12,14 @@ import { Config } from '../../index';
   }
 })
 export class App {
-  mode: string;
+  mode!: Mode;
 
   private isDevice = false;
   private deviceHacks = false;
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
-  @Prop({ context: 'config' }) config: Config;
+  @Prop({ context: 'config' }) config!: Config;
 
   componentWillLoad() {
     this.isDevice = this.config.getBoolean('isDevice', false);

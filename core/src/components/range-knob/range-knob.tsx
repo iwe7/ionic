@@ -15,8 +15,8 @@ export class RangeKnob {
   @Prop() knob: string;
   @Prop() ratio: number;
 
-  @Event() ionIncrease: EventEmitter;
-  @Event() ionDecrease: EventEmitter;
+  @Event() ionIncrease!: EventEmitter;
+  @Event() ionDecrease!: EventEmitter;
 
   @Listen('keydown')
   handleKeyBoard(ev: KeyboardEvent) {

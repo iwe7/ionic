@@ -1,4 +1,4 @@
-import { Config, PlatformConfig } from '../index';
+import { Config, Mode, PlatformConfig } from '../index';
 
 export function updateTestResults(displayWhen: DisplayWhen) {
   displayWhen.passesTest = getTestResult(displayWhen);
@@ -97,11 +97,11 @@ const SIZE_TO_MEDIA: any = {
 export interface DisplayWhen {
   calculatedPlatforms: PlatformConfig[];
   config: Config;
-  mediaQuery: string|undefined;
-  mode: string|undefined;
+  mediaQuery?: string;
+  mode: Mode;
   or: boolean;
-  orientation: string|undefined;
+  orientation?: string;
   passesTest: boolean;
-  platform: string|undefined;
-  size: string|undefined;
+  platform?: string;
+  size?: string;
 }

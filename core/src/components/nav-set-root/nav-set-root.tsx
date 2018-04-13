@@ -7,7 +7,7 @@ import { NavComponent } from '../nav/nav-util';
 })
 export class NavSetRoot {
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
   @Prop() component: NavComponent;
   @Prop() componentProps: ComponentProps;
   @Prop() url: string;

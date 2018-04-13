@@ -13,11 +13,11 @@ import { QueueController } from '../../index';
 })
 export class VirtualScroll {
 
-  private scrollEl: HTMLIonScrollElement | null;
+  private scrollEl?: HTMLIonScrollElement | null;
   private range: Range = {offset: 0, length: 0};
   private timerUpdate: any;
-  private heightIndex: Uint32Array;
-  private viewportHeight: number;
+  private heightIndex?: Uint32Array;
+  private viewportHeight = 0;
   private cells: Cell[] = [];
   private virtualDom: VirtualNode[] = [];
   private isEnabled = false;
@@ -28,10 +28,10 @@ export class VirtualScroll {
   private heightChanged = false;
   private lastItemLen = 0;
 
-  @Element() el: HTMLStencilElement;
+  @Element() el!: HTMLStencilElement;
 
-  @Prop({context: 'queue'}) queue: QueueController;
-  @Prop({context: 'enableListener'}) enableListener: EventListenerEnable;
+  @Prop({context: 'queue'}) queue!: QueueController;
+  @Prop({context: 'enableListener'}) enableListener!: EventListenerEnable;
 
 
   /**
@@ -80,7 +80,7 @@ export class VirtualScroll {
    * and what data to give to the header template. The function must return
    * `null` if a header cell shouldn't be created.
    */
-  @Prop() headerFn: HeaderFn;
+  @Prop() headerFn?: HeaderFn;
 
   /**
    * Section footers and the data used within its given
@@ -89,7 +89,7 @@ export class VirtualScroll {
    * should be used, and what data to give to the footer template. The function
    * must return `null` if a footer cell shouldn't be created.
    */
-  @Prop() footerFn: HeaderFn;
+  @Prop() footerFn?: HeaderFn;
 
   /**
    * The data that builds the templates within the virtual scroll.
@@ -97,13 +97,13 @@ export class VirtualScroll {
    * that when this data has changed, then the entire virtual scroll is reset,
    * which is an expensive operation and should be avoided if possible.
    */
-  @Prop() items: any[];
+  @Prop() items?: any[];
 
-  @Prop() renderer: (item: any) => JSX.Element;
-  @Prop() nodeHeight: NodeHeightFn;
-  @Prop() itemHeight: ItemHeightFn;
-  @Prop() itemRender: ItemRenderFn;
-  @Prop() domRender: DomRenderFn;
+  @Prop() renderer?: (item: any) => JSX.Element;
+  @Prop() nodeHeight?: NodeHeightFn;
+  @Prop() itemHeight?: ItemHeightFn;
+  @Prop() itemRender?: ItemRenderFn;
+  @Prop() domRender?: DomRenderFn;
 
   @Watch('itemHeight')
   @Watch('items')

@@ -1,5 +1,5 @@
 import { Component, Element, Event, EventEmitter, Listen, Method, Prop, State, Watch } from '@stencil/core';
-import { BaseInputComponent, GestureDetail } from '../../index';
+import { BaseInputComponent, GestureDetail, Mode } from '../../index';
 import { clamp, debounceEvent } from '../../utils/helpers';
 
 export interface Tick {
@@ -22,11 +22,9 @@ export class Range implements BaseInputComponent {
 
   private styleTmr: any;
 
-  activated = false;
   hasFocus = false;
-  startX: number;
 
-  @Element() private el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   @State() barL: string;
   @State() barR: string;
@@ -35,46 +33,46 @@ export class Range implements BaseInputComponent {
   @State() ratioA = 0;
   @State() ratioB = 0;
   @State() ticks: Tick[] = [];
-  @State() activeB: boolean;
+  @State() activeB = false;
   @State() rect: ClientRect;
 
-  @State() pressed: boolean;
-  @State() pressedA: boolean;
-  @State() pressedB: boolean;
+  @State() pressed = false;
+  @State() pressedA = false;
+  @State() pressedB = false;
 
   /**
    * Emitted when the value property has changed.
    */
-  @Event() ionChange: EventEmitter;
+  @Event() ionChange!: EventEmitter;
 
   /**
    * Emitted when the styles change.
    */
-  @Event() ionStyle: EventEmitter;
+  @Event() ionStyle!: EventEmitter;
 
   /**
    * Emitted when the range has focus.
    */
-  @Event() ionFocus: EventEmitter;
+  @Event() ionFocus!: EventEmitter;
 
   /**
    * Emitted when the range loses focus.
    */
-  @Event() ionBlur: EventEmitter;
+  @Event() ionBlur!: EventEmitter;
 
   /**
    * The color to use from your Sass `$colors` map.
    * Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`.
    * For more information, see [Theming your App](/docs/theming/theming-your-app).
    */
-  @Prop() color: string;
+  @Prop() color!: string;
 
   /**
    * The mode determines which platform styles to use.
    * Possible values are: `"ios"` or `"md"`.
    * For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
    */
-  @Prop() mode: 'ios' | 'md';
+  @Prop() mode!: Mode;
 
   /**
    * How long, in milliseconds, to wait to trigger the

@@ -1,5 +1,5 @@
 import { Component, Element, Event, EventEmitter, Listen, Method, Prop } from '@stencil/core';
-import { Animation, AnimationBuilder, Config } from '../../index';
+import { Animation, AnimationBuilder, Config, Mode } from '../../index';
 import { createThemedClasses, getClassMap } from '../../utils/theme';
 import { BACKDROP, OverlayEventDetail, OverlayInterface, dismiss, eventMethod, present } from '../../utils/overlays';
 
@@ -25,25 +25,25 @@ export class Loading implements OverlayInterface {
 
   presented = false;
   animation: Animation;
-  color: string;
-  mode: string;
+  color!: string;
+  mode!: Mode;
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
-  @Prop({ connect: 'ion-animation-controller' }) animationCtrl: HTMLIonAnimationControllerElement;
-  @Prop({ context: 'config' }) config: Config;
-  @Prop() overlayId: number;
+  @Prop({ connect: 'ion-animation-controller' }) animationCtrl!: HTMLIonAnimationControllerElement;
+  @Prop({ context: 'config' }) config!: Config;
+  @Prop() overlayId!: number;
   @Prop() keyboardClose = true;
 
   /**
    * Animation to use when the loading indicator is presented.
    */
-  @Prop() enterAnimation: AnimationBuilder;
+  @Prop() enterAnimation?: AnimationBuilder;
 
   /**
    * Animation to use when the loading indicator is dismissed.
    */
-  @Prop() leaveAnimation: AnimationBuilder;
+  @Prop() leaveAnimation?: AnimationBuilder;
 
   /**
    * Optional text content to display in the loading indicator.
@@ -54,7 +54,7 @@ export class Loading implements OverlayInterface {
    * Additional classes to apply for custom CSS. If multiple classes are
    * provided they should be separated by spaces.
    */
-  @Prop() cssClass: string | string[];
+  @Prop() cssClass?: string | string[];
 
   /**
    * If true, the loading indicator will dismiss when the page changes. Defaults to `false`.
@@ -95,32 +95,32 @@ export class Loading implements OverlayInterface {
   /**
    * Emitted after the loading has unloaded.
    */
-  @Event() ionLoadingDidUnload: EventEmitter<void>;
+  @Event() ionLoadingDidUnload!: EventEmitter<void>;
 
   /**
    * Emitted after the loading has loaded.
    */
-  @Event() ionLoadingDidLoad: EventEmitter<void>;
+  @Event() ionLoadingDidLoad!: EventEmitter<void>;
 
   /**
    * Emitted after the loading has presented.
    */
-  @Event({eventName: 'ionLoadingDidPresent'}) didPresent: EventEmitter<void>;
+  @Event({eventName: 'ionLoadingDidPresent'}) didPresent!: EventEmitter<void>;
 
   /**
    * Emitted before the loading has presented.
    */
-  @Event({eventName: 'ionLoadingWillPresent'}) willPresent: EventEmitter<void>;
+  @Event({eventName: 'ionLoadingWillPresent'}) willPresent!: EventEmitter<void>;
 
   /**
    * Emitted before the loading has dismissed.
    */
-  @Event({eventName: 'ionLoadingWillDismiss'}) willDismiss: EventEmitter<OverlayEventDetail>;
+  @Event({eventName: 'ionLoadingWillDismiss'}) willDismiss!: EventEmitter<OverlayEventDetail>;
 
   /**
    * Emitted after the loading has dismissed.
    */
-  @Event({eventName: 'ionLoadingDidDismiss'}) didDismiss: EventEmitter<OverlayEventDetail>;
+  @Event({eventName: 'ionLoadingDidDismiss'}) didDismiss!: EventEmitter<OverlayEventDetail>;
 
   componentWillLoad() {
     if (!this.spinner) {

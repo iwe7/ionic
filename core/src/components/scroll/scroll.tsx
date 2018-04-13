@@ -1,5 +1,5 @@
 import { Component, Element, Event, EventEmitter, Listen, Method, Prop } from '@stencil/core';
-import { Config, GestureDetail, QueueController } from '../../index';
+import { Config, GestureDetail, Mode, QueueController } from '../../index';
 
 @Component({
   tag: 'ion-scroll',
@@ -19,12 +19,12 @@ export class Scroll {
   private detail: ScrollDetail;
   private queued = false;
 
-  @Element() private el: HTMLElement;
+  @Element() el!: HTMLElement;
 
-  @Prop({ context: 'config'}) config: Config;
-  @Prop({ context: 'queue' }) queue: QueueController;
+  @Prop({ context: 'config'}) config!: Config;
+  @Prop({ context: 'queue' }) queue!: QueueController;
 
-  @Prop() mode: string;
+  @Prop() mode!: Mode;
 
 
   /**
@@ -39,18 +39,18 @@ export class Scroll {
   /**
    * Emitted when the scroll has started.
    */
-  @Event() ionScrollStart: EventEmitter<ScrollBaseDetail>;
+  @Event() ionScrollStart!: EventEmitter<ScrollBaseDetail>;
 
   /**
    * Emitted while scrolling. This event is disabled by default.
    * Look at the property: `scrollEvents`
    */
-  @Event({bubbles: false}) ionScroll: EventEmitter<ScrollDetail>;
+  @Event({bubbles: false}) ionScroll!: EventEmitter<ScrollDetail>;
 
   /**
    * Emitted when the scroll has ended.
    */
-  @Event() ionScrollEnd: EventEmitter<ScrollBaseDetail>;
+  @Event() ionScrollEnd!: EventEmitter<ScrollBaseDetail>;
 
   constructor() {
     // Detail is used in a hot loop in the scroll event, by allocating it here

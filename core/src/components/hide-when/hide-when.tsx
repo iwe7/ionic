@@ -1,5 +1,5 @@
 import { Component, Element, Listen, Prop, State } from '@stencil/core';
-import { Config, PlatformConfig } from '../../index';
+import { Config, Mode, PlatformConfig } from '../../index';
 
 import {
   DisplayWhen,
@@ -12,15 +12,16 @@ import {
 })
 export class HideWhen implements DisplayWhen {
 
-  @Element() element: HTMLElement;
-  @Prop({ context: 'config' }) config: Config;
-  @Prop({ context: 'platforms' }) calculatedPlatforms: PlatformConfig[];
+  mode!: Mode;
 
-  @Prop() orientation: string|undefined;
-  @Prop() mediaQuery: string|undefined;
-  @Prop() size: string|undefined;
-  @Prop() mode: string|undefined;
-  @Prop() platform: string|undefined;
+  @Element() element!: HTMLElement;
+  @Prop({ context: 'config' }) config!: Config;
+  @Prop({ context: 'platforms' }) calculatedPlatforms!: PlatformConfig[];
+
+  @Prop() orientation?: string;
+  @Prop() mediaQuery?: string;
+  @Prop() size?: string;
+  @Prop() platform?: string;
   @Prop() or = false;
 
   @State() passesTest = false;

@@ -1,5 +1,5 @@
 import { Component, Element, Event, EventEmitter, Listen, Method, Prop } from '@stencil/core';
-import { Animation, AnimationBuilder, Config, CssClassMap } from '../../index';
+import { Animation, AnimationBuilder, Config, CssClassMap, Mode } from '../../index';
 import { BACKDROP, OverlayEventDetail, OverlayInterface, dismiss, eventMethod, isCancel, present } from '../../utils/overlays';
 import { createThemedClasses, getClassMap } from '../../utils/theme';
 
@@ -26,46 +26,46 @@ export class Alert implements OverlayInterface {
 
   presented = false;
   animation: Animation|undefined;
-  color: string;
+  color!: string;
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
-  @Prop({ connect: 'ion-animation-controller' }) animationCtrl: HTMLIonAnimationControllerElement;
-  @Prop({ context: 'config' }) config: Config;
-  @Prop() overlayId: number;
-  @Prop() mode: string;
+  @Prop({ connect: 'ion-animation-controller' }) animationCtrl!: HTMLIonAnimationControllerElement;
+  @Prop({ context: 'config' }) config!: Config;
+  @Prop() overlayId!: number;
+  @Prop() mode!: Mode;
   @Prop() keyboardClose = true;
 
   /**
    * Animation to use when the alert is presented.
    */
-  @Prop() enterAnimation: AnimationBuilder;
+  @Prop() enterAnimation?: AnimationBuilder;
 
   /**
    * Animation to use when the alert is dismissed.
    */
-  @Prop() leaveAnimation: AnimationBuilder;
+  @Prop() leaveAnimation?: AnimationBuilder;
 
   /**
    * Additional classes to apply for custom CSS. If multiple classes are
    * provided they should be separated by spaces.
    */
-  @Prop() cssClass: string | string[];
+  @Prop() cssClass?: string | string[];
 
   /**
    * The main title in the heading of the alert.
    */
-  @Prop() header: string;
+  @Prop() header?: string;
 
   /**
    * The subtitle in the heading of the alert. Displayed under the title.
    */
-  @Prop() subHeader: string;
+  @Prop() subHeader?: string;
 
   /**
    * The main message to be displayed in the alert.
    */
-  @Prop() message: string;
+  @Prop() message?: string;
 
   /**
    * Array of buttons to be added to the alert.
@@ -95,32 +95,32 @@ export class Alert implements OverlayInterface {
   /**
    * Emitted after the alert has presented.
    */
-  @Event() ionAlertDidLoad: EventEmitter<void>;
+  @Event() ionAlertDidLoad!: EventEmitter<void>;
 
   /**
    * Emitted before the alert has presented.
    */
-  @Event() ionAlertDidUnload: EventEmitter<void>;
+  @Event() ionAlertDidUnload!: EventEmitter<void>;
 
   /**
    * Emitted after the alert has presented.
    */
-  @Event({eventName: 'ionAlertDidPresent'}) didPresent: EventEmitter<void>;
+  @Event({eventName: 'ionAlertDidPresent'}) didPresent!: EventEmitter<void>;
 
   /**
    * Emitted before the alert has presented.
    */
-  @Event({eventName: 'ionAlertWillPresent'}) willPresent: EventEmitter<void>;
+  @Event({eventName: 'ionAlertWillPresent'}) willPresent!: EventEmitter<void>;
 
   /**
    * Emitted before the alert has dismissed.
    */
-  @Event({eventName: 'ionAlertWillDismiss'}) willDismiss: EventEmitter<OverlayEventDetail>;
+  @Event({eventName: 'ionAlertWillDismiss'}) willDismiss!: EventEmitter<OverlayEventDetail>;
 
   /**
    * Emitted after the alert has dismissed.
    */
-  @Event({eventName: 'ionAlertDidDismiss'}) didDismiss: EventEmitter<OverlayEventDetail>;
+  @Event({eventName: 'ionAlertDidDismiss'}) didDismiss!: EventEmitter<OverlayEventDetail>;
 
 
   componentDidLoad() {

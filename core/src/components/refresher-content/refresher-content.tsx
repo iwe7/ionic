@@ -6,7 +6,7 @@ import { Config } from '../../index';
 })
 export class RefresherContent {
 
-  @Prop({ context: 'config' }) config: Config;
+  @Prop({ context: 'config' }) config!: Config;
 
   /**
    * A static icon to display when you begin to pull down

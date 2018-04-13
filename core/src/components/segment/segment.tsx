@@ -1,4 +1,5 @@
 import { Component, Element, Event, EventEmitter, Listen, Prop, Watch } from '@stencil/core';
+import { Mode } from '../..';
 
 
 @Component({
@@ -12,19 +13,19 @@ import { Component, Element, Event, EventEmitter, Listen, Prop, Watch } from '@s
   }
 })
 export class Segment {
-  @Element() private el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   /**
    * The color to use for the text color.
    * Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`.
    */
-  @Prop() color: string;
+  @Prop() color!: string;
 
   /**
    * The mode determines which platform styles to use.
    * Possible values are: `"ios"` or `"md"`.
    */
-  @Prop() mode: 'ios' | 'md';
+  @Prop() mode!: Mode;
 
   /*
    * If true, the user cannot interact with the segment. Defaults to `false`.
@@ -45,7 +46,7 @@ export class Segment {
   /**
    * Emitted when the value property has changed.
    */
-  @Event() ionChange: EventEmitter;
+  @Event() ionChange!: EventEmitter;
 
 
   componentDidLoad() {

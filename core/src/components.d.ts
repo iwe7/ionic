@@ -36,6 +36,7 @@ import {
   LoadingOptions,
   Menu,
   ModalOptions,
+  Mode,
   PickerColumn,
   PickerOptions,
   PlatformConfig,
@@ -59,6 +60,13 @@ import {
   Animation,
   AnimationBuilder as AnimationBuilder2,
 } from './components/animation-controller/animation-interface';
+import {
+  AnimationBuilder as AnimationBuilder3,
+  ComponentProps as ComponentProps2,
+  ComponentRef as ComponentRef2,
+  FrameworkDelegate as FrameworkDelegate2,
+  Mode as Mode2,
+} from '.';
 import {
   BlurEvent,
   CheckedInputChangeEvent,
@@ -92,12 +100,6 @@ import {
   TransitionDoneFn,
   TransitionInstruction,
 } from './components/nav/nav-util';
-import {
-  AnimationBuilder as AnimationBuilder3,
-  ComponentProps as ComponentProps2,
-  ComponentRef as ComponentRef2,
-  FrameworkDelegate as FrameworkDelegate2,
-} from '.';
 import {
   ViewController,
 } from './components/nav/view-controller';
@@ -390,7 +392,7 @@ declare global {
        * The main message to be displayed in the alert.
        */
       'message': string;
-      'mode': string;
+      'mode': Mode;
       /**
        * Returns a promise that resolves when the alert did dismiss. It also accepts a callback that is called in the same circustances.  ``` const {data, role} = await alert.onDidDismiss(); ```
        */
@@ -471,7 +473,7 @@ declare global {
        * The main message to be displayed in the alert.
        */
       'message'?: string;
-      'mode'?: string;
+      'mode'?: Mode;
       /**
        * Emitted after the alert has dismissed.
        */
@@ -679,11 +681,11 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * The text to display in the back button.
        */
-      'text': string | undefined;
+      'text': string;
     }
   }
 
@@ -721,11 +723,11 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * The text to display in the back button.
        */
-      'text'?: string | undefined;
+      'text'?: string;
     }
   }
 }
@@ -801,7 +803,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -831,7 +833,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -868,7 +870,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * If true, activates a button with rounded corners.
        */
@@ -938,7 +940,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted when the button loses focus.
        */
@@ -1016,7 +1018,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -1046,7 +1048,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -1063,7 +1065,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * If true, the card header will be translucent. Defaults to `false`.
        */
@@ -1097,7 +1099,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * If true, the card header will be translucent. Defaults to `false`.
        */
@@ -1118,7 +1120,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -1148,7 +1150,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -1165,7 +1167,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -1195,7 +1197,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -1212,7 +1214,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -1242,7 +1244,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -1267,7 +1269,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * The name of the control, which is submitted with the form data.
        */
@@ -1313,7 +1315,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * The name of the control, which is submitted with the form data.
        */
@@ -1366,7 +1368,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -1408,7 +1410,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -1425,7 +1427,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -1455,7 +1457,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -1799,11 +1801,11 @@ declare global {
       /**
        * Contains a URL or a URL fragment that the hyperlink points to. If this property is set, an anchor tag will be rendered.
        */
-      'href': string | undefined;
+      'href': string;
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       'show': boolean;
       /**
        * If true, the fab button will be translucent. Defaults to `false`.
@@ -1846,11 +1848,11 @@ declare global {
       /**
        * Contains a URL or a URL fragment that the hyperlink points to. If this property is set, an anchor tag will be rendered.
        */
-      'href'?: string | undefined;
+      'href'?: string;
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       'show'?: boolean;
       /**
        * If true, the fab button will be translucent. Defaults to `false`.
@@ -2205,12 +2207,11 @@ declare global {
 
   namespace StencilComponents {
     interface IonHideWhen {
-      'mediaQuery': string|undefined;
-      'mode': string|undefined;
+      'mediaQuery': string;
       'or': boolean;
-      'orientation': string|undefined;
-      'platform': string|undefined;
-      'size': string|undefined;
+      'orientation': string;
+      'platform': string;
+      'size': string;
     }
   }
 
@@ -2233,12 +2234,11 @@ declare global {
   }
   namespace JSXElements {
     export interface IonHideWhenAttributes extends HTMLAttributes {
-      'mediaQuery'?: string|undefined;
-      'mode'?: string|undefined;
+      'mediaQuery'?: string;
       'or'?: boolean;
-      'orientation'?: string|undefined;
-      'platform'?: string|undefined;
-      'size'?: string|undefined;
+      'orientation'?: string;
+      'platform'?: string;
+      'size'?: string;
     }
   }
 }
@@ -2673,7 +2673,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -2703,7 +2703,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -2765,7 +2765,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -2807,7 +2807,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -2937,7 +2937,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * When using a router, it specifies the transition direction when navigating a another page usign `href`.
        */
@@ -2987,7 +2987,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * When using a router, it specifies the transition direction when navigating a another page usign `href`.
        */
@@ -3009,7 +3009,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * The position determines where and how the label behaves inside an item. Possible values are: 'inline' | 'fixed' | 'stacked' | 'floating'
        */
@@ -3043,7 +3043,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted when the styles change.
        */
@@ -3068,7 +3068,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -3098,7 +3098,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -3687,7 +3687,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * Returns a promise that resolves when the modal did dismiss. It also accepts a callback that is called in the same circustances.  ``` const {data, role} = await modal.onDidDismiss(); ```
        */
@@ -3764,7 +3764,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted after the modal has dismissed.
        */
@@ -3980,7 +3980,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -4010,7 +4010,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -4363,7 +4363,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * Returns a promise that resolves when the popover did dismiss. It also accepts a callback that is called in the same circustances.  ``` const {data, role} = await popover.onDidDismiss(); ```
        */
@@ -4448,7 +4448,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted after the popover has dismissed.
        */
@@ -4571,7 +4571,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * The name of the control, which is submitted with the form data.
        */
@@ -4617,7 +4617,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * The name of the control, which is submitted with the form data.
        */
@@ -4734,7 +4734,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * If true, a pin with integer value is shown when the knob is pressed. Defaults to `false`.
        */
@@ -4805,7 +4805,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted when the range loses focus.
        */
@@ -5339,7 +5339,7 @@ declare global {
        * If true and the content does not cause an overflow scroll, the scroll interaction will cause a bounce. If the content exceeds the bounds of ionScroll, nothing will change. Note, the does not disable the system bounce on iOS. That is an OS level setting.
        */
       'forceOverscroll': boolean;
-      'mode': string;
+      'mode': Mode;
       'scrollByPoint': (x: number, y: number, duration: number, done?: Function | undefined) => Promise<any>;
       'scrollEvents': boolean;
       'scrollToBottom': (duration: number) => Promise<void>;
@@ -5371,7 +5371,7 @@ declare global {
        * If true and the content does not cause an overflow scroll, the scroll interaction will cause a bounce. If the content exceeds the bounds of ionScroll, nothing will change. Note, the does not disable the system bounce on iOS. That is an OS level setting.
        */
       'forceOverscroll'?: boolean;
-      'mode'?: string;
+      'mode'?: Mode;
       /**
        * Emitted while scrolling. This event is disabled by default. Look at the property: `scrollEvents`
        */
@@ -5421,7 +5421,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * Set the input's placeholder. Default `"Search"`.
        */
@@ -5491,7 +5491,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted when the input loses focus.
        */
@@ -5558,7 +5558,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * The value of the segment button.
        */
@@ -5602,7 +5602,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted when the segment button is clicked.
        */
@@ -5628,7 +5628,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * the value of the segment.
        */
@@ -5663,7 +5663,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`.
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * Emitted when the value property has changed.
        */
@@ -5822,7 +5822,7 @@ declare global {
       /**
        * the value of the select.
        */
-      'value': string | string[] | undefined;
+      'value': string | string[];
     }
   }
 
@@ -5904,7 +5904,7 @@ declare global {
       /**
        * the value of the select.
        */
-      'value'?: string | string[] | undefined;
+      'value'?: string | string[];
     }
   }
 }
@@ -5915,7 +5915,6 @@ declare global {
   namespace StencilComponents {
     interface IonShowWhen {
       'mediaQuery': string;
-      'mode': string;
       'or': boolean;
       'orientation': string;
       'platform': string;
@@ -5943,7 +5942,6 @@ declare global {
   namespace JSXElements {
     export interface IonShowWhenAttributes extends HTMLAttributes {
       'mediaQuery'?: string;
-      'mode'?: string;
       'or'?: boolean;
       'orientation'?: string;
       'platform'?: string;
@@ -6189,7 +6187,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * The name of the SVG spinner to use. If a name is not provided, the platform's default spinner will be used. Possible values are: `"lines"`, `"lines-small"`, `"dots"`, `"bubbles"`, `"circles"`, `"crescent"`.
        */
@@ -6231,7 +6229,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * The name of the SVG spinner to use. If a name is not provided, the platform's default spinner will be used. Possible values are: `"lines"`, `"lines-small"`, `"dots"`, `"bubbles"`, `"circles"`, `"crescent"`.
        */
@@ -6701,7 +6699,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
     }
   }
 
@@ -6731,7 +6729,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
     }
   }
 }
@@ -7038,13 +7036,9 @@ declare global {
        */
       'dismiss': (data?: any, role?: string | undefined) => Promise<void>;
       /**
-       * If true, the toast will dismiss when the page changes. Defaults to `false`.
-       */
-      'dismissOnPageChange': boolean;
-      /**
        * How many milliseconds to wait before hiding the toast. By default, it will show until `dismiss()` is called.
        */
-      'duration': number;
+      'duration': any;
       /**
        * Animation to use when the toast is presented.
        */
@@ -7118,13 +7112,9 @@ declare global {
        */
       'cssClass'?: string | string[];
       /**
-       * If true, the toast will dismiss when the page changes. Defaults to `false`.
-       */
-      'dismissOnPageChange'?: boolean;
-      /**
        * How many milliseconds to wait before hiding the toast. By default, it will show until `dismiss()` is called.
        */
-      'duration'?: number;
+      'duration'?: any;
       /**
        * Animation to use when the toast is presented.
        */
@@ -7203,7 +7193,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * The name of the control, which is submitted with the form data.
        */
@@ -7249,7 +7239,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * The name of the control, which is submitted with the form data.
        */
@@ -7290,7 +7280,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode': 'ios' | 'md';
+      'mode': Mode;
       /**
        * If true, the toolbar will be translucent. Note: In order to scroll content behind the toolbar, the `fullscreen` attribute needs to be set on the content. Defaults to `false`.
        */
@@ -7324,7 +7314,7 @@ declare global {
       /**
        * The mode determines which platform styles to use. Possible values are: `"ios"` or `"md"`. For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
        */
-      'mode'?: 'ios' | 'md';
+      'mode'?: Mode;
       /**
        * If true, the toolbar will be translucent. Note: In order to scroll content behind the toolbar, the `fullscreen` attribute needs to be set on the content. Defaults to `false`.
        */

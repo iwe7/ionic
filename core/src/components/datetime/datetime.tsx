@@ -209,12 +209,12 @@ export class Datetime {
   /**
    * Emitted when the datetime selection was cancelled.
    */
-  @Event() ionCancel: EventEmitter;
+  @Event() ionCancel!: EventEmitter;
 
   /**
    * Emitted when the styles change.
    */
-  @Event() ionStyle: EventEmitter;
+  @Event() ionStyle!: EventEmitter;
 
 
   componentWillLoad() {

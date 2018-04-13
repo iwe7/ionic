@@ -10,7 +10,7 @@ import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 export class SelectOption {
   id: string;
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   /**
    * If true, the user cannot interact with the select option. Defaults to `false`.
@@ -30,12 +30,12 @@ export class SelectOption {
   /**
    * Emitted when the select option loads.
    */
-  @Event() ionSelectOptionDidLoad: EventEmitter;
+  @Event() ionSelectOptionDidLoad!: EventEmitter;
 
   /**
    * Emitted when the select option unloads.
    */
-  @Event() ionSelectOptionDidUnload: EventEmitter;
+  @Event() ionSelectOptionDidUnload!: EventEmitter;
 
   constructor() {
     this.id = 'ion-selopt-' + (selectOptionIds++);

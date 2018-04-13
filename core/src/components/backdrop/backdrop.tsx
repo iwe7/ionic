@@ -33,7 +33,7 @@ export class Backdrop {
   /**
    * Emitted when the backdrop is tapped.
    */
-  @Event() ionBackdropTap: EventEmitter;
+  @Event() ionBackdropTap!: EventEmitter;
 
   componentDidLoad() {
     registerBackdrop(this);

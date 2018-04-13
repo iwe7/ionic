@@ -6,7 +6,7 @@ import { QueueController } from '../..';
 })
 export class StatusTap {
 
-  @Prop({ context: 'queue' }) queue: QueueController;
+  @Prop({ context: 'queue' }) queue!: QueueController;
 
   @Prop() duration = 300;
 

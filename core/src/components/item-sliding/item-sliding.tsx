@@ -43,14 +43,14 @@ export class ItemSliding {
   private rightOptions: HTMLIonItemOptionsElement|undefined;
   private optsDirty = true;
 
-  @Element() private el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   @State() state: SlidingState = SlidingState.Disabled;
 
   /**
    * Emitted when the sliding position changes.
    */
-  @Event() ionDrag: EventEmitter;
+  @Event() ionDrag!: EventEmitter;
 
   componentDidLoad() {
     this.item = this.el.querySelector('ion-item');

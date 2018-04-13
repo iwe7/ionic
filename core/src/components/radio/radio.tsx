@@ -1,7 +1,7 @@
 import { BlurEvent, CheckedInputChangeEvent, FocusEvent, RadioButtonInput, StyleEvent } from '../../utils/input-interfaces';
 import { Component, ComponentDidLoad, ComponentDidUnload, ComponentWillLoad, Event, EventEmitter, Prop, State, Watch } from '@stencil/core';
 import { createThemedClasses } from '../../utils/theme';
-import { CssClassMap } from '../../index';
+import { CssClassMap, Mode } from '../../index';
 
 
 @Component({
@@ -29,14 +29,14 @@ export class Radio implements RadioButtonInput, ComponentDidLoad, ComponentDidUn
    * Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`.
    * For more information, see [Theming your App](/docs/theming/theming-your-app).
    */
-  @Prop() color: string;
+  @Prop() color!: string;
 
   /**
    * The mode determines which platform styles to use.
    * Possible values are: `"ios"` or `"md"`.
    * For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
    */
-  @Prop() mode: 'ios' | 'md';
+  @Prop() mode!: Mode;
 
   /**
    * The name of the control, which is submitted with the form data.
@@ -61,32 +61,32 @@ export class Radio implements RadioButtonInput, ComponentDidLoad, ComponentDidUn
   /**
    * Emitted when the radio loads.
    */
-  @Event() ionRadioDidLoad: EventEmitter;
+  @Event() ionRadioDidLoad!: EventEmitter;
 
   /**
    * Emitted when the radio unloads.
    */
-  @Event() ionRadioDidUnload: EventEmitter;
+  @Event() ionRadioDidUnload!: EventEmitter;
 
   /**
    * Emitted when the styles change.
    */
-  @Event() ionStyle: EventEmitter<StyleEvent>;
+  @Event() ionStyle!: EventEmitter<StyleEvent>;
 
   /**
    * Emitted when the radio button is selected.
    */
-  @Event() ionSelect: EventEmitter<CheckedInputChangeEvent>;
+  @Event() ionSelect!: EventEmitter<CheckedInputChangeEvent>;
 
   /**
    * Emitted when the radio button has focus.
    */
-  @Event() ionFocus: EventEmitter<FocusEvent>;
+  @Event() ionFocus!: EventEmitter<FocusEvent>;
 
   /**
    * Emitted when the radio button loses focus.
    */
-  @Event() ionBlur: EventEmitter<BlurEvent>;
+  @Event() ionBlur!: EventEmitter<BlurEvent>;
 
 
   componentWillLoad() {

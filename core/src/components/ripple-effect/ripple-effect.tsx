@@ -9,10 +9,10 @@ import { QueueController } from '../../index';
 export class RippleEffect {
 
   private lastClick = -10000;
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
-  @Prop({context: 'queue'}) queue: QueueController;
-  @Prop({context: 'enableListener'}) enableListener: EventListenerEnable;
+  @Prop({context: 'queue'}) queue!: QueueController;
+  @Prop({context: 'enableListener'}) enableListener!: EventListenerEnable;
 
   @Prop() tapClick = false;
   @Watch('tapClick')

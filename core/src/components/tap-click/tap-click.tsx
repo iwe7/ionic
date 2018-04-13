@@ -16,10 +16,10 @@ export class TapClick {
 
   private clearDefers = new WeakMap<HTMLElement, any>();
 
-  @Prop({context: 'isServer'}) isServer: boolean;
-  @Prop({context: 'enableListener'}) enableListener: EventListenerEnable;
+  @Prop({context: 'isServer'}) isServer!: boolean;
+  @Prop({context: 'enableListener'}) enableListener!: EventListenerEnable;
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   @Listen('body:click', {passive: false, capture: true})
   onBodyClick(ev: Event) {

@@ -1,6 +1,6 @@
 import { BlurEvent, CheckboxInput, CheckedInputChangeEvent, FocusEvent, StyleEvent } from '../../utils/input-interfaces';
 import { Component, Event, EventEmitter, Prop, State, Watch } from '@stencil/core';
-import { GestureDetail } from '../../index';
+import { GestureDetail, Mode } from '../../index';
 import { hapticSelection } from '../../utils/haptic';
 import { deferEvent } from '../../utils/helpers';
 
@@ -32,14 +32,14 @@ export class Toggle implements CheckboxInput {
    * Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`.
    * For more information, see [Theming your App](/docs/theming/theming-your-app).
    */
-  @Prop() color: string;
+  @Prop() color!: string;
 
   /**
    * The mode determines which platform styles to use.
    * Possible values are: `"ios"` or `"md"`.
    * For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
    */
-  @Prop() mode: 'ios' | 'md';
+  @Prop() mode!: Mode;
 
   /**
    * The name of the control, which is submitted with the form data.
@@ -64,22 +64,22 @@ export class Toggle implements CheckboxInput {
   /**
    * Emitted when the value property has changed.
    */
-  @Event() ionChange: EventEmitter<CheckedInputChangeEvent>;
+  @Event() ionChange!: EventEmitter<CheckedInputChangeEvent>;
 
   /**
    * Emitted when the toggle has focus.
    */
-  @Event() ionFocus: EventEmitter<FocusEvent>;
+  @Event() ionFocus!: EventEmitter<FocusEvent>;
 
   /**
    * Emitted when the toggle loses focus.
    */
-  @Event() ionBlur: EventEmitter<BlurEvent>;
+  @Event() ionBlur!: EventEmitter<BlurEvent>;
 
   /**
    * Emitted when the styles change.
    */
-  @Event() ionStyle: EventEmitter<StyleEvent>;
+  @Event() ionStyle!: EventEmitter<StyleEvent>;
 
 
   constructor() {

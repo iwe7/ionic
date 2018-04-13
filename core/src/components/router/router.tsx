@@ -11,24 +11,24 @@ import { routeRedirect, routerIDsToChain, routerPathToChain } from './utils/matc
 })
 export class Router {
 
-  private routes: RouteChain[];
+  private routes: RouteChain[] = [];
   private previousPath: string|null = null;
-  private redirects: RouteRedirect[];
+  private redirects: RouteRedirect[] = [];
   private busy = false;
   private init = false;
   private state = 0;
   private lastState = 0;
   private timer: any;
 
-  @Element() el: HTMLElement;
+  @Element() el!: HTMLElement;
 
-  @Prop({ context: 'config' }) config: Config;
-  @Prop({ context: 'queue' }) queue: QueueController;
+  @Prop({ context: 'config' }) config!: Config;
+  @Prop({ context: 'queue' }) queue!: QueueController;
 
   @Prop() base = '';
   @Prop() useHash = true;
 
-  @Event() ionRouteChanged: EventEmitter<RouterEventDetail>;
+  @Event() ionRouteChanged!: EventEmitter<RouterEventDetail>;
 
   componentDidLoad() {
     this.init = true;

@@ -10,7 +10,7 @@ import { Side, isRightSide } from '../../utils/helpers';
   }
 })
 export class ItemOptions {
-  @Element() private el: HTMLElement;
+  @Element() el!: HTMLElement;
 
   /**
    * The side the option button should be on.
@@ -23,7 +23,7 @@ export class ItemOptions {
   /**
    * Emitted when the item has been fully swiped.
    */
-  @Event() ionSwipe: EventEmitter;
+  @Event() ionSwipe!: EventEmitter;
 
   @Method()
   isRightSide() {
