@@ -1,17 +1,70 @@
+import { Injectable } from '@angular/core';
+import { BackButtonDetail, Platforms, getPlatforms, isPlatform } from '@ionic/core';
+import { Subject, Subscription } from 'rxjs';
 
-import { PlatformConfig } from '@ionic/core';
+import { proxyEvent } from '../util/util';
 
+export interface BackButtonEmitter extends Subject<BackButtonDetail> {
+  subscribeWithPriority(priority: number, callback: () => Promise<any> | void): Subscription;
+}
+
+@Injectable()
 export class Platform {
 
-  private _platforms: PlatformConfig[];
-  private _readyPromise: Promise<any>;
-  private _readyResolve: any;
+  private _readyPromise: Promise<string>;
+
+  /**
+   * @hidden
+   */
+  backButton: BackButtonEmitter = new Subject<BackButtonDetail>() as any;
+
+  /**
+   * The pause event emits when the native platform puts the application
+   * into the background, typically when the user switches to a different
+   * application. This event would emit when a Cordova app is put into
+   * the background, however, it would not fire on a standard web browser.
+   */
+  pause = new Subject<void>();
+
+  /**
+   * The resume event emits when the native platform pulls the application
+   * out from the background. This event would emit when a Cordova app comes
+   * out from the background, however, it would not fire on a standard web browser.
+   */
+  resume = new Subject<void>();
+
+  /**
+   * The resize event emits when the browser window has changed dimensions. This
+   * could be from a browser window being physically resized, or from a device
+   * changing orientation.
+   */
+  resize = new Subject<void>();
 
   constructor() {
-    this._readyPromise = new Promise(res => { this._readyResolve = res; } );
+    this.backButton.subscribeWithPriority = function(priority, callback) {
+      return this.subscribe(ev => {
+        ev.register(priority, callback);
+      });
+    };
+
+    proxyEvent(this.pause, document, 'pause');
+    proxyEvent(this.resume, document, 'resume');
+    proxyEvent(this.backButton, document, 'ionBackButton');
+    proxyEvent(this.resize, window, 'resize');
+
+    let readyResolve: (value: string) => void;
+    this._readyPromise = new Promise(res => { readyResolve = res; });
+    if ((window as any)['cordova']) {
+      document.addEventListener('deviceready', () => {
+        readyResolve('cordova');
+      }, { once: true });
+    } else {
+      readyResolve!('dom');
+    }
   }
+
   /**
-   * @returns {boolean} returns true/false based on platform.
+   * @returns returns true/false based on platform.
    * @description
    * Depending on the platform the user is on, `is(platformName)` will
    * return `true` or `false`. Note that the same app can return `true`
@@ -39,25 +92,24 @@ export class Platform {
    * |-----------------|------------------------------------|
    * | android         | on a device running Android.       |
    * | cordova         | on a device running Cordova.       |
-   * | core            | on a desktop device.               |
    * | ios             | on a device running iOS.           |
    * | ipad            | on an iPad device.                 |
    * | iphone          | on an iPhone device.               |
-   * | mobile          | on a mobile device.                |
-   * | mobileweb       | in a browser on a mobile device.   |
    * | phablet         | on a phablet device.               |
    * | tablet          | on a tablet device.                |
-   * | windows         | on a device running Windows.       |
    * | electron        | in Electron on a desktop device.   |
+   * | pwa             | as a PWA app.   |
+   * | mobile          | on a mobile device.                |
+   * | desktop         | on a desktop device.               |
+   * | hybrid          | is a cordova or capacitor app.     |
    *
-   * @param {string} platformName
    */
-  is(platformName: string): boolean {
-    return this._platforms.some(p => p.name === platformName);
+  is(platformName: Platforms): boolean {
+    return isPlatform(window, platformName);
   }
 
   /**
-   * @returns {array} the array of platforms
+   * @returns the array of platforms
    * @description
    * Depending on what device you are on, `platforms` can return multiple values.
    * Each possible value is a hierarchy of platforms. For example, on an iPhone,
@@ -76,31 +128,8 @@ export class Platform {
    * ```
    */
   platforms(): string[] {
-    return this._platforms.map(platform => platform.name);
+    return getPlatforms(window);
   }
-
-  /**
-   * Returns an object containing version information about all of the platforms.
-   *
-   * ```
-   * import { Platform } from 'ionic-angular';
-   *
-   * @Component({...})
-   * export MyPage {
-   *   constructor(public platform: Platform) {
-   *     // This will print an object containing
-   *     // all of the platforms and their versions
-   *     console.log(platform.versions());
-   *   }
-   * }
-   * ```
-   *
-   * @returns {object} An object containing all of the platforms and their versions.
-   */
-  versions(): PlatformConfig[] {
-    return this._platforms.slice();
-  }
-
 
   ready(): Promise<string> {
     return this._readyPromise;
@@ -110,11 +139,10 @@ export class Platform {
     return document.dir === 'rtl';
   }
 
-
   /**
    * Get the query string parameter
    */
-  getQueryParam(key: string): string {
+  getQueryParam(key: string): string | null {
     return readQueryParam(window.location.href, key);
   }
 

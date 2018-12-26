@@ -23,7 +23,9 @@ Basic Usage
 </ion-item>
 
 <ion-item color="secondary">
-  <ion-label>Secondary Color Item</ion-label>
+  <ion-label>
+    Secondary Color Item
+  </ion-label>
 </ion-item>
 ```
 
@@ -53,22 +55,27 @@ List Items
 
 ```html
 <ion-list>
+  <ion-item>
+    <ion-label>
+      Item
+    </ion-label>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>
+      No Lines Item
+    </ion-label>
+  </ion-item>
 
   <ion-item>
-    Item
-  </ion-item>
-
-  <ion-item no-lines>
-    No Lines Item
-  </ion-item>
-
-  <ion-item text-wrap>
+    <ion-label text-wrap>
     Multiline text that should wrap when it is too long
     to fit on one line in the item.
+    </ion-label>
   </ion-item>
 
-  <ion-item text-wrap>
-    <ion-label>
+  <ion-item>
+    <ion-label text-wrap>
       <ion-text color="primary">
         <h3>H3 Primary Title</h3>
       </ion-text>
@@ -79,8 +86,67 @@ List Items
     </ion-label>
   </ion-item>
 
+  <ion-item lines="full">
+    <ion-label>
+      Item with Full Lines
+    </ion-label>
+  </ion-item>
+
 </ion-list>
 ```
+
+Item Lines
+
+```html
+<!-- Item Inset Lines -->
+<ion-item lines="inset">
+  <ion-label>Item Lines Inset</ion-label>
+</ion-item>
+
+<!-- Item Full Lines -->
+<ion-item lines="full">
+  <ion-label>Item Lines Full</ion-label>
+</ion-item>
+
+<!-- Item None Lines -->
+<ion-item lines="none">
+  <ion-label>Item Lines None</ion-label>
+</ion-item>
+
+<!-- List Full Lines -->
+<ion-list lines="full">
+  <ion-item>
+    <ion-label>Item</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Item</ion-label>
+  </ion-item>
+</ion-list>
+
+<!-- List Inset Lines -->
+<ion-list lines="inset">
+  <ion-item>
+    <ion-label>Item</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Item</ion-label>
+  </ion-item>
+</ion-list>
+
+<!-- List No Lines -->
+<ion-list lines="none">
+  <ion-item>
+    <ion-label>Item</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Item</ion-label>
+  </ion-item>
+</ion-list>
+```
+
 
 Media Items
 

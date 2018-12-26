@@ -1,16 +1,17 @@
-import { RouteChain, RouteID } from '../utils/interfaces';
+import { mockWindow } from '@stencil/core/mock-doc';
+
+import { RouteChain, RouteID } from '../utils/interface';
 import { routerIDsToChain, routerPathToChain } from '../utils/matching';
-import { mockRouteElement } from './parser.spec';
+import { readRoutes } from '../utils/parser';
 import { chainToPath, generatePath, parsePath } from '../utils/path';
-import { flattenRouterTree, readRoutes } from '../utils/parser';
-import { TestWindow } from '@stencil/core/dist/testing';
+
+import { mockRouteElement } from './parser.spec';
 
 describe('ionic-conference-app', () => {
 
   it('should match conference-app routing', () => {
     const root = conferenceAppRouting();
-    const tree = readRoutes(root);
-    const routes = flattenRouterTree(tree);
+    const routes = readRoutes(root);
 
     expect(getRouteIDs('/', routes)).toEqual(['page-tabs', 'tab-schedule', 'page-schedule']);
     expect(getRouteIDs('/speaker', routes)).toEqual(['page-tabs', 'tab-speaker', 'page-speaker-list']);
@@ -19,38 +20,37 @@ describe('ionic-conference-app', () => {
     expect(getRouteIDs('/tutorial', routes)).toEqual(['page-tutorial']);
 
     expect(getRoutePath([
-      {id: 'PAGE-TABS'},
-      {id: 'tab-schedule'},
-      {id: 'page-schedule'}], routes)).toEqual('/');
+      { id: 'PAGE-TABS' },
+      { id: 'tab-schedule' },
+      { id: 'page-schedule' }], routes)).toEqual('/');
 
     expect(getRoutePath([
-      {id: 'page-tabs'},
-      {id: 'TAB-SPEAKER'}], routes)).toEqual('/speaker');
+      { id: 'page-tabs' },
+      { id: 'TAB-SPEAKER' }], routes)).toEqual('/speaker');
 
     expect(getRoutePath([
-      {id: 'page-tabs'},
-      {id: 'TAB-SPEAKER'},
-      {id: 'page-speaker-list'}], routes)).toEqual('/speaker');
+      { id: 'page-tabs' },
+      { id: 'TAB-SPEAKER' },
+      { id: 'page-speaker-list' }], routes)).toEqual('/speaker');
 
     expect(getRoutePath([
-      {id: 'page-tabs'},
-      {id: 'PAGE-MAP'}], routes)).toEqual('/map');
+      { id: 'page-tabs' },
+      { id: 'PAGE-MAP' }], routes)).toEqual('/map');
 
     expect(getRoutePath([
-      {id: 'page-tabs'},
-      {id: 'page-about'}], routes)).toEqual('/about');
+      { id: 'page-tabs' },
+      { id: 'page-about' }], routes)).toEqual('/about');
 
     expect(getRoutePath([
-      {id: 'page-tutorial'}], routes)).toEqual('/tutorial');
+      { id: 'page-tutorial' }], routes)).toEqual('/tutorial');
   });
 
   let win: Window;
   beforeEach(() => {
-    win = new TestWindow() as any;
+    win = mockWindow();
   });
 
-
-function conferenceAppRouting() {
+  function conferenceAppRouting() {
   const p2 = mockRouteElement(win, '/', 'tab-schedule');
   const p3 = mockRouteElement(win, '/', 'PAGE-SCHEDULE');
   p2.appendChild(p3);
@@ -75,7 +75,6 @@ function conferenceAppRouting() {
   return container;
 }
 });
-
 
 export function getRouteIDs(path: string, routes: RouteChain[]): string[] {
   return routerPathToChain(parsePath(path), routes)!.map(r => r.id);

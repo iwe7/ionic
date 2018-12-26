@@ -1,12 +1,20 @@
-import { NavOutlet, NavOutletElement, RouteChain, RouteID, RouterDirection } from './interfaces';
+import { NavOutletElement, RouteChain, RouteID, RouterDirection } from '../../../interface';
 
-export async function writeNavState(root: HTMLElement|undefined, chain: RouteChain|null, direction: RouterDirection, index: number, changed = false): Promise<boolean> {
+import { ROUTER_INTENT_NONE } from './constants';
+
+export async function writeNavState(
+  root: HTMLElement | undefined,
+  chain: RouteChain,
+  direction: RouterDirection,
+  index: number,
+  changed = false
+): Promise<boolean> {
   try {
     // find next navigation outlet in the DOM
     const outlet = searchNavNode(root);
 
-    // make sure we can continue interating the DOM, otherwise abort
-    if (!chain || index >= chain.length || !outlet) {
+    // make sure we can continue interacting the DOM, otherwise abort
+    if (index >= chain.length || !outlet) {
       return changed;
     }
     await outlet.componentOnReady();
@@ -17,11 +25,11 @@ export async function writeNavState(root: HTMLElement|undefined, chain: RouteCha
     // if the outlet changed the page, reset navigation to neutral (no direction)
     // this means nested outlets will not animate
     if (result.changed) {
-      direction = RouterDirection.None;
+      direction = ROUTER_INTENT_NONE;
       changed = true;
     }
 
-    // recursivelly set nested outlets
+    // recursively set nested outlets
     changed = await writeNavState(result.element, chain, direction, index + 1, changed);
 
     // once all nested outlets are visible let's make the parent visible too,
@@ -36,14 +44,15 @@ export async function writeNavState(root: HTMLElement|undefined, chain: RouteCha
   }
 }
 
-export function readNavState(root: HTMLElement | undefined) {
+export async function readNavState(root: HTMLElement | undefined) {
   const ids: RouteID[] = [];
-  let outlet: NavOutlet|null;
-  let node: HTMLElement|undefined = root;
+  let outlet: NavOutletElement | undefined;
+  let node: HTMLElement | undefined = root;
+  // tslint:disable-next-line:no-constant-condition
   while (true) {
     outlet = searchNavNode(node);
     if (outlet) {
-      const id = outlet.getRouteId();
+      const id = await outlet.getRouteId();
       if (id) {
         node = id.element;
         id.element = undefined;
@@ -55,17 +64,27 @@ export function readNavState(root: HTMLElement | undefined) {
       break;
     }
   }
-  return {ids, outlet};
+  return { ids, outlet };
 }
 
-const QUERY = ':not([no-router]) ion-nav,:not([no-router]) ion-tabs, :not([no-router]) ion-router-outlet';
+export function waitUntilNavNode(win: Window) {
+  if (searchNavNode(win.document.body)) {
+    return Promise.resolve();
+  }
+  return new Promise(resolve => {
+    win.addEventListener('ionNavWillLoad', resolve, { once: true });
+  });
+}
 
-function searchNavNode(root: HTMLElement|undefined): NavOutletElement|null {
+const QUERY = ':not([no-router]) ion-nav, :not([no-router]) ion-tabs, :not([no-router]) ion-router-outlet';
+
+function searchNavNode(root: HTMLElement | undefined): NavOutletElement | undefined {
   if (!root) {
-    return null;
+    return undefined;
   }
   if (root.matches(QUERY)) {
     return root as NavOutletElement;
   }
-  return root.querySelector(QUERY);
+  const outlet = root.querySelector<NavOutletElement>(QUERY);
+  return outlet ? outlet : undefined;
 }

@@ -1,6 +1,7 @@
-import { flattenRouterTree, readRedirects, readRoutes } from '../utils/parser';
-import { RouteRedirect, RouteTree } from '../utils/interfaces';
-import { TestWindow } from '@stencil/core/dist/testing';
+import { mockWindow } from '@stencil/core/mock-doc';
+
+import { RouteRedirect, RouteTree } from '../utils/interface';
+import { flattenRouterTree, readRedirects, readRouteNodes } from '../utils/parser';
 
 describe('parser', () => {
 
@@ -31,7 +32,7 @@ describe('parser', () => {
           ] }
         ] }
       ];
-      expect(readRoutes(root)).toEqual(expected);
+      expect(readRouteNodes(root)).toEqual(expected);
     });
   });
 
@@ -51,11 +52,11 @@ describe('parser', () => {
       root.appendChild(r5);
 
       const expected: RouteRedirect[] = [
-        {from: [''], to: undefined},
-        {from: [''], to: ['workout']},
-        {from: ['*'], to: undefined},
-        {from: ['workout', '*'], to: ['']},
-        {from: ['path', 'hey'], to: ['path', 'to', 'login']}
+        { from: [''], to: undefined },
+        { from: [''], to: ['workout'] },
+        { from: ['*'], to: undefined },
+        { from: ['workout', '*'], to: [''] },
+        { from: ['path', 'hey'], to: ['path', 'to', 'login'] }
 
       ];
       expect(readRedirects(root)).toEqual(expected);
@@ -78,22 +79,17 @@ describe('parser', () => {
       expect(routes).toEqual([
         [{ path: [''], id: 'hola' }],
         [{ path: ['one-page'], id: 'one-page' }],
-        [{ path: ['secondpage'], id: 'second-page'}, { path: ['5', 'hola'], id: '4'}, { path: ['path', 'to', 'five'], id: '5'}],
-        [{ path: ['secondpage'], id: 'second-page'}, { path: ['5', 'hola'], id: '4'}, { path: ['path', 'to', 'five2'], id: '6'}],
+        [{ path: ['secondpage'], id: 'second-page' }, { path: ['5', 'hola'], id: '4' }, { path: ['path', 'to', 'five'], id: '5' }],
+        [{ path: ['secondpage'], id: 'second-page' }, { path: ['5', 'hola'], id: '4' }, { path: ['path', 'to', 'five2'], id: '6' }],
       ]);
     });
   });
 
   let win: Window;
   beforeEach(() => {
-    win = new TestWindow();
+    win = mockWindow();
   });
 });
-export class TestWindow2 {
-
-}
-export declare interface TestWindow2 extends Window {}
-
 
 export function mockRouteElement(win: Window, path: string, component: string) {
   const el = win.document.createElement('ion-route');
@@ -102,7 +98,7 @@ export function mockRouteElement(win: Window, path: string, component: string) {
   return el;
 }
 
-export function mockRedirectElement(win: Window, from: string|undefined, to: string|undefined|null) {
+export function mockRedirectElement(win: Window, from: string | undefined | null, to: string | undefined | null) {
   const el = win.document.createElement('ion-route-redirect');
   if (from != null) {
     el.setAttribute('from', from);
@@ -112,4 +108,3 @@ export function mockRedirectElement(win: Window, from: string|undefined, to: str
   }
   return el;
 }
-
